@@ -2,9 +2,9 @@
 
 const fs = require('fs');
 
-const [, , filePath] = process.argv;
+const [, , filePath, strToWrite] = process.argv;
 
-fs.readFile(filePath, 'utf-8', (err, data) => {
+fs.writeFile(filePath, strToWrite, 'utf-8', (err, data) => {
   if (err) {
     console.log(err);
     return;
