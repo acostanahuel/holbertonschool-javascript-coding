@@ -5,7 +5,7 @@ const urlApi = process.argv[2];
 
 request(urlApi, function (error, response, body) {
   if (error) {
-    console.log(error); // Print the error if one occurred
+    console.log(error); 
   } else {
     const jsonObj = JSON.parse(body);
     const newDict = {};

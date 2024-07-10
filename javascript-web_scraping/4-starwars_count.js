@@ -1,18 +1,23 @@
 #!/usr/bin/node
 
 const request = require('request');
-const url = process.argv[2];
-const characterId = 18;
+const urlApi = process.argv[2];
 
-request.get(url, (error, response, body) => {
+request(urlApi, function (error, response, body) {
   if (error) {
-    console.error(error);
+    console.log(error); 
+  } else {
+    const jsonObj = JSON.parse(body).results;
+    let count = 0;
+    let charList;
+    for (let i = 0; i < jsonObj.length; i++) {
+      charList = jsonObj[i].characters;
+      charList.forEach(element => {
+        if (element.search('/18/') > 0) {
+          count += 1;
+        }
+      });
+    }
+    console.log(count);
   }
-  const results = JSON.parse(body).results;
-  const characters = results.map(result => result.characters);
-  const listOfCharacter = characters.flat();
-  const countWedge = listOfCharacter.filter(characterUrl => {
-    return characterUrl.includes(`/${characterId}/`);
-  });
-  console.log(countWedge.length);
 });
